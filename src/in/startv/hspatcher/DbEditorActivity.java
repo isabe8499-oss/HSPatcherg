@@ -469,7 +469,7 @@ public class DbEditorActivity extends Activity {
         int maxPage = Math.max(0, (totalRows - 1) / MAX_ROWS_PER_PAGE);
 
         tvRowCount.setText(totalRows + " rows in \"" + currentTable + "\"");
-        tvPageInfo.setText("Page " + (currentPage + 1) + "/" + (maxPage + 1));
+        tvPageInfo.setText("Página " + (currentPage + 1) + "/" + (maxPage + 1));
         btnPrevPage.setEnabled(currentPage > 0);
         btnNextPage.setEnabled(currentPage < maxPage);
 
@@ -647,7 +647,7 @@ public class DbEditorActivity extends Activity {
         if (db == null || !db.isOpen() || currentTable == null) return;
 
         AlertDialog.Builder b = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog);
-        b.setTitle("Edit: " + colName);
+        b.setTitle("Editar: " + colName);
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -690,7 +690,7 @@ public class DbEditorActivity extends Activity {
         final String[] fRowValues = rowValues.clone();
         final int fColIdx = colIdx;
 
-        b.setPositiveButton("Save", (dialog, which) -> {
+        b.setPositiveButton(PtBr.t("Save"), (dialog, which) -> {
             try {
                 String whereClause = buildWhereClause(allCols, fRowValues);
                 ContentValues cv = new ContentValues();
@@ -707,7 +707,7 @@ public class DbEditorActivity extends Activity {
                 log("❌ Update error: " + e.getMessage());
             }
         });
-        b.setNegativeButton("Cancel", null);
+        b.setNegativeButton(PtBr.t("Cancel"), null);
         b.show();
     }
 
@@ -715,9 +715,9 @@ public class DbEditorActivity extends Activity {
         if (db == null || !db.isOpen() || currentTable == null) return;
 
         new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog)
-            .setTitle("Delete Row?")
-            .setMessage("Are you sure you want to delete this row? This cannot be undone.")
-            .setPositiveButton("Delete", (dialog, which) -> {
+            .setTitle(PtBr.t("Delete Row?"))
+            .setMessage(PtBr.t("Are you sure you want to delete this row? This cannot be undone."))
+            .setPositiveButton(PtBr.t("Delete"), (dialog, which) -> {
                 try {
                     String whereClause = buildWhereClause(cols, values);
                     int affected = db.delete("\"" + escapeTable(currentTable) + "\"", whereClause, null);
@@ -727,7 +727,7 @@ public class DbEditorActivity extends Activity {
                     log("❌ Delete error: " + e.getMessage());
                 }
             })
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(PtBr.t("Cancel"), null)
             .show();
     }
 
@@ -739,7 +739,7 @@ public class DbEditorActivity extends Activity {
         if (colInfo.isEmpty()) { log("❌ No columns found"); return; }
 
         AlertDialog.Builder b = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog);
-        b.setTitle("Insert Row into " + currentTable);
+        b.setTitle("Inserir linha em " + currentTable);
 
         ScrollView sv = new ScrollView(this);
         LinearLayout layout = new LinearLayout(this);
@@ -774,7 +774,7 @@ public class DbEditorActivity extends Activity {
         sv.addView(layout);
         b.setView(sv);
 
-        b.setPositiveButton("Insert", (dialog, which) -> {
+        b.setPositiveButton(PtBr.t("Insert"), (dialog, which) -> {
             try {
                 ContentValues cv = new ContentValues();
                 for (int i = 0; i < colInfo.size(); i++) {
@@ -795,7 +795,7 @@ public class DbEditorActivity extends Activity {
                 log("❌ Insert error: " + e.getMessage());
             }
         });
-        b.setNegativeButton("Cancel", null);
+        b.setNegativeButton(PtBr.t("Cancel"), null);
         b.show();
     }
 
@@ -850,9 +850,9 @@ public class DbEditorActivity extends Activity {
         }
 
         new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog)
-            .setTitle("Schema: " + currentTable)
+            .setTitle("Estrutura: " + currentTable)
             .setMessage(sb.toString())
-            .setPositiveButton("OK", null)
+            .setPositiveButton(PtBr.t("OK"), null)
             .show();
 
         log("📋 Schema for '" + currentTable + "': " + colInfo.size() + " columns");
@@ -955,7 +955,7 @@ public class DbEditorActivity extends Activity {
                 final String path = out.getAbsolutePath();
                 mainHandler.post(() -> {
                     log("💾 Exported " + fc + " rows to: " + path);
-                    Toast.makeText(this, "Exported to Downloads", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, PtBr.t("Exported to Downloads"), Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
                 final String err = e.getMessage();
