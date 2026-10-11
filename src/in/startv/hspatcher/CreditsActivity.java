@@ -18,6 +18,7 @@ public class CreditsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PtBr.apply(this);
         applyModernSystemUi();
         buildUi();
     }
