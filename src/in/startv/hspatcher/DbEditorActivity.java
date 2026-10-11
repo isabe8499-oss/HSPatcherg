@@ -76,6 +76,7 @@ public class DbEditorActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PtBr.apply(this);
         mainHandler = new Handler(Looper.getMainLooper());
         applyModernSystemUi();
         buildUI();
