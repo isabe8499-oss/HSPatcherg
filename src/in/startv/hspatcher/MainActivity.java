@@ -220,6 +220,7 @@ public class MainActivity extends Activity {
 
     private void showToolsMenu() {
         View root = getLayoutInflater().inflate(R.layout.dialog_tools, null);
+        PtBr.translateTree(root);
         View signer = root.findViewById(R.id.dialog_tools_signer);
         View dbEditor = root.findViewById(R.id.dialog_tools_db);
         View playStore = root.findViewById(R.id.dialog_tools_playstore);
@@ -2279,6 +2280,7 @@ public class MainActivity extends Activity {
         boolean hasCert = hasCaCert();
 
         View root = getLayoutInflater().inflate(R.layout.dialog_cert, null);
+        PtBr.translateTree(root);
 
         TextView tvStatus       = root.findViewById(R.id.dialog_cert_status);
         View infoPanelCard      = root.findViewById(R.id.dialog_cert_info_panel);
