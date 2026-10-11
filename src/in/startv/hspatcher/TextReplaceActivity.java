@@ -880,9 +880,9 @@ public class TextReplaceActivity extends Activity {
                     android.R.style.Theme_Material_Dialog_Alert)
                 .setTitle(PtBr.t("Replace All (large file)"))
                 .setMessage("Processar o arquivo inteiro em fluxo ("
-                    + formatSize(currentFileSize) + ")?\\n\\n"
-                    + "Pesquisar: " + searchText + "\\n"
-                    + "Substituir: " + replaceText + "\\n\\n"
+                    + formatSize(currentFileSize) + ")?\n\n"
+                    + "Pesquisar: " + searchText + "\n"
+                    + "Substituir: " + replaceText + "\n\n"
                     + "O arquivo será modificado no local atual.")
                 .setPositiveButton(PtBr.t("Replace"),
                     (d, w) -> streamReplaceAllAsync(pattern))
