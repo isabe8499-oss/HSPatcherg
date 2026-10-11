@@ -59,6 +59,7 @@ public class AppListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PtBr.apply(this);
         isBackupMode = getIntent().getBooleanExtra(EXTRA_BACKUP_MODE, false);
         patchedOnlyMode = getIntent().getBooleanExtra(EXTRA_PATCHED_ONLY, false);
         directPlayUpdateMode = getIntent().getBooleanExtra(EXTRA_DIRECT_PLAY_UPDATE, false);
