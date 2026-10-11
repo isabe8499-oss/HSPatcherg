@@ -364,7 +364,7 @@ public final class PtBr {
                 if (!hint.toString().equals(mapped)) edit.setHint(mapped);
             }
         }
-        if (root instanceof TextView) {
+        if (root instanceof TextView && !(root instanceof EditText)) {
             TextView textView = (TextView) root;
             CharSequence text = textView.getText();
             if (text != null) {
