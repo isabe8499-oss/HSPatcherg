@@ -5,6 +5,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: hspatcher-pt-br-build
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: windows-latest
@@ -17,6 +20,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Set up Android SDK
         shell: pwsh
         run: |
@@ -43,8 +50,12 @@ jobs:
         shell: pwsh
         run: |
           if (!(Test-Path "hspatcher.jks")) {
-            keytool -genkeypair -noprompt -keystore "hspatcher.jks" -storepass "ci-temporary-password" -keypass "ci-temporary-password" -alias "hspatcher" -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=HSPatcher CI, OU=Build, O=HSPatcher, C=BR"
+            keytool -genkeypair -noprompt -storetype JKS -keystore "hspatcher.jks" -storepass "hspatcher123" -keypass "hspatcher123" -alias "hspatcher" -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=HSPatcher CI, OU=Build, O=HSPatcher, C=BR"
           }
+      - name: Install Frida agent build dependencies
+        shell: pwsh
+        working-directory: frida_agent
+        run: npm install --no-audit --no-fund --package-lock=false
       - name: Build APK
         shell: pwsh
         run: pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -Clean
