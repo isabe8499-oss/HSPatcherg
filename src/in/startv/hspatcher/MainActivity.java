@@ -1058,7 +1058,7 @@ public class MainActivity extends Activity {
                 checkSignatureAndInstall();
             } else {
                 log("❌ Install permission was not granted");
-                Toast.makeText(this, "Install permission is required to install APKs",
+                Toast.makeText(this, PtBr.t("Install permission is required to install APKs"),
                     Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == UNINSTALL_REQUEST) {
@@ -1273,7 +1273,7 @@ public class MainActivity extends Activity {
         if (selectedApkPatchedVersion != null) {
             new AlertDialog.Builder(this)
                 .setTitle("\u26a0\ufe0f Already Patched")
-                .setMessage("This APK was previously patched by HSPatcher (v"
+                .setMessage("Este APK já foi modificado pelo HSPatcher (v"
                     + selectedApkPatchedVersion + ").\n\n"
                     + "Re-patching may cause:\n"
                     + "\u2022 App crashes from duplicate hooks\n"
@@ -1281,8 +1281,8 @@ public class MainActivity extends Activity {
                     + "\u2022 Broken functionality\n\n"
                     + "Use the ORIGINAL unmodified APK for best results.\n\n"
                     + "Proceed anyway?")
-                .setPositiveButton("Patch Anyway", (d, w) -> doPatch())
-                .setNegativeButton("Cancel", null)
+                .setPositiveButton(PtBr.t("Patch Anyway"), (d, w) -> doPatch())
+                .setNegativeButton(PtBr.t("Cancel"), null)
                 .show();
             return;
         }
@@ -1544,7 +1544,7 @@ public class MainActivity extends Activity {
 
     private void onInstallClick() {
         if (patchedApk == null || !patchedApk.exists()) {
-            Toast.makeText(this, "No patched APK found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, PtBr.t("No patched APK found"), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -1658,7 +1658,7 @@ public class MainActivity extends Activity {
 
     private void showSignatureMismatchDialog(String installedVer, String patchedVer) {
         new android.app.AlertDialog.Builder(this)
-            .setTitle("⚠️ Signature Mismatch")
+            .setTitle(PtBr.t("⚠️ Signature Mismatch"))
             .setMessage(
                 "The installed \"" + targetPackageName + "\" has a different signing key " +
                 "than the patched APK.\n\n" +
@@ -1667,31 +1667,31 @@ public class MainActivity extends Activity {
                 "You must uninstall the existing app before installing the patched version. " +
                 "This will remove all app data.\n\n" +
                 "What would you like to do?")
-            .setPositiveButton("Uninstall & Install", (d, w) -> {
+            .setPositiveButton(PtBr.t("Uninstall & Install"), (d, w) -> {
                 startUninstallFlow(targetPackageName, true);
             })
-            .setNeutralButton("Try Anyway", (d, w) -> {
+            .setNeutralButton(PtBr.t("Try Anyway"), (d, w) -> {
                 log("↪ Attempting install despite signature mismatch...");
                 doInstall();
             })
-            .setNegativeButton("Cancel", (d, w) -> log("❌ Install cancelled by user"))
+            .setNegativeButton(PtBr.t("Cancel"), (d, w) -> log("❌ Install cancelled by user"))
             .setCancelable(false)
             .show();
     }
 
     private void showVersionDowngradeDialog(String installedVer, String patchedVer) {
         new android.app.AlertDialog.Builder(this)
-            .setTitle("⚠️ Older Build Downloaded")
+            .setTitle(PtBr.t("⚠️ Older Build Downloaded"))
             .setMessage(
-                "The installed app is newer than the Play build that was downloaded.\n\n" +
-                "Installed version: " + installedVer + "\n" +
-                "Downloaded version: " + patchedVer + "\n\n" +
-                "Android will block this as a downgrade unless the current app is removed first.\n\n" +
-                "What would you like to do?")
-            .setPositiveButton("Uninstall & Install", (d, w) -> {
+                "O aplicativo instalado é mais recente do que a versão baixada da Play Store.\n\n" +
+                "Versão instalada: " + installedVer + "\n" +
+                "Versão baixada: " + patchedVer + "\n\n" +
+                "O Android bloqueará a instalação como downgrade, a menos que o aplicativo atual seja removido primeiro.\n\n" +
+                "O que deseja fazer?")
+            .setPositiveButton(PtBr.t("Uninstall & Install"), (d, w) -> {
                 startUninstallFlow(targetPackageName, true);
             })
-            .setNegativeButton("Keep Current Version", (d, w) -> {
+            .setNegativeButton(PtBr.t("Keep Current Version"), (d, w) -> {
                 log("❌ Downgrade install cancelled — keeping installed version");
             })
             .show();
@@ -1821,16 +1821,16 @@ public class MainActivity extends Activity {
 
     private void onUninstallClick() {
         if (targetPackageName == null || targetPackageName.trim().isEmpty()) {
-            Toast.makeText(this, "No target package detected yet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, PtBr.t("No target package detected yet"), Toast.LENGTH_SHORT).show();
             log("⚠️ No target package detected yet — patch an APK first.");
             return;
         }
 
         new android.app.AlertDialog.Builder(this)
-            .setTitle("Uninstall")
+            .setTitle(PtBr.t("Uninstall"))
             .setMessage("Uninstall \"" + targetPackageName + "\"?\n\nThis will remove all app data.")
-            .setPositiveButton("Uninstall", (d, w) -> startUninstallFlow(targetPackageName, false))
-            .setNegativeButton("Cancel", null)
+            .setPositiveButton(PtBr.t("Uninstall"), (d, w) -> startUninstallFlow(targetPackageName, false))
+            .setNegativeButton(PtBr.t("Cancel"), null)
             .show();
     }
 
@@ -1939,7 +1939,7 @@ public class MainActivity extends Activity {
                     log("📏 " + (backupZip.length() / (1024 * 1024)) + " MB");
 
                     mainHandler.post(() -> Toast.makeText(this,
-                        "Backup saved to Downloads/HSPatcher_Backups/",
+                        PtBr.t("Backup saved to Downloads/HSPatcher_Backups/"),
                         Toast.LENGTH_LONG).show());
                 } else {
                     // Single APK — simple copy
@@ -1956,7 +1956,7 @@ public class MainActivity extends Activity {
                     log("📏 " + (backupFile.length() / (1024 * 1024)) + " MB");
 
                     mainHandler.post(() -> Toast.makeText(this,
-                        "Backup saved to Downloads/HSPatcher_Backups/",
+                        PtBr.t("Backup saved to Downloads/HSPatcher_Backups/"),
                         Toast.LENGTH_LONG).show());
                 }
             } catch (Exception e) {
@@ -2003,10 +2003,10 @@ public class MainActivity extends Activity {
         input.setSingleLine(true);
 
         new AlertDialog.Builder(this)
-            .setTitle("Download from Play Store")
-            .setMessage("Enter a package name or search query:")
+            .setTitle(PtBr.t("Download from Play Store"))
+            .setMessage(PtBr.t("Enter a package name or search query:"))
             .setView(input)
-            .setPositiveButton("Download", (d, w) -> {
+            .setPositiveButton(PtBr.t("Download"), (d, w) -> {
                 String query = input.getText().toString().trim();
                 if (query.isEmpty()) return;
                 autoPatchAfterLoad = true;
@@ -2017,7 +2017,7 @@ public class MainActivity extends Activity {
                     doPlayStoreSearch(query);
                 }
             })
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(PtBr.t("Cancel"), null)
             .show();
     }
 
@@ -2070,12 +2070,12 @@ public class MainActivity extends Activity {
             items[i] = r.title + "\n" + r.packageName;
         }
         new AlertDialog.Builder(this)
-            .setTitle("Select App to Download")
+            .setTitle(PtBr.t("Select App to Download"))
             .setItems(items, (d, which) -> {
                 String pkg = results.get(which).packageName;
                 doPlayStoreDownload(pkg);
             })
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(PtBr.t("Cancel"), null)
             .show();
     }
 
@@ -2339,7 +2339,7 @@ public class MainActivity extends Activity {
             dialog.dismiss();
             deleteCaCert();
             updateCertButton();
-            Toast.makeText(this, "CA certificate deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, PtBr.t("CA certificate deleted"), Toast.LENGTH_SHORT).show();
         });
 
         rowClose.setOnClickListener(v -> dialog.dismiss());
@@ -2413,12 +2413,12 @@ public class MainActivity extends Activity {
                     updateCertButton();
                     log("\u2705 CA certificate imported: " + fName + " (" + fSize + " bytes)");
                     log("   Will be embedded in all patched APKs.");
-                    Toast.makeText(this, "CA cert imported: " + fName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Certificado CA importado: " + fName, Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
                 mainHandler.post(() -> {
                     log("\u274c Failed to import certificate: " + e.getMessage());
-                    Toast.makeText(this, "Import failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Falha na importação: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
             }
         }).start();
