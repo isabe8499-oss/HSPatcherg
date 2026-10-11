@@ -300,6 +300,11 @@ public final class PtBr {
         put(m, "See the libraries and upstream projects behind HSPatcher", "Veja as bibliotecas e projetos originais usados pelo HSPatcher");
         put(m, "Sign APK", "Assinar APK");
         put(m, "Signing, patch maintenance, Play sync, and support tools arranged as a cleaner operations sheet.", "Assinatura, manutenção de patches, sincronização com a Play Store e ferramentas de suporte.");
+        put(m, "Tap the drifting sparks while HSPatcher finishes the patch.", "Toque nas faíscas enquanto o HSPatcher termina o patch.");
+        put(m, "Signing Log", "Registro da assinatura");
+        put(m, "e.g. in.startv.hotstar or JioHotstar", "por exemplo, in.startv.hotstar ou JioHotstar");
+        put(m, "CERTIFICATE", "CERTIFICADO");
+        put(m, "What would you like to do?", "O que deseja fazer?");
         TEXT = Collections.unmodifiableMap(m);
     }
 
@@ -313,6 +318,11 @@ public final class PtBr {
         if (value == null) return null;
         String translated = TEXT.get(value);
         if (translated != null) return translated;
+        if (value.startsWith("Score ")) {
+            return value.replace("Score ", "Pontos ")
+                .replace("Streak ", "Sequência ")
+                .replace("Best ", "Melhor ");
+        }
         if (value.startsWith("Error: ")) return "Erro: " + value.substring(7);
         if (value.startsWith("Error opening: ")) return "Erro ao abrir: " + value.substring(15);
         if (value.startsWith("Install failed: ")) return "Falha na instalação: " + value.substring(15);
