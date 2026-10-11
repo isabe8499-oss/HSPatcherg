@@ -576,7 +576,7 @@ public class ApkSignerActivity extends Activity {
                 log("📏 Size: " + (signedApk.length() / 1024) + " KB");
 
                 mainHandler.post(() -> {
-                    Toast.makeText(this, "Signed APK saved to Downloads",
+                    Toast.makeText(this, PtBr.t("Signed APK saved to Downloads"),
                         Toast.LENGTH_LONG).show();
                 });
             } catch (Exception e) {
