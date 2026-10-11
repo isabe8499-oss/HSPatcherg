@@ -1660,13 +1660,12 @@ public class MainActivity extends Activity {
         new android.app.AlertDialog.Builder(this)
             .setTitle(PtBr.t("⚠️ Signature Mismatch"))
             .setMessage(
-                "The installed \"" + targetPackageName + "\" has a different signing key " +
-                "than the patched APK.\n\n" +
-                "Installed version: " + installedVer + "\n" +
-                "Patched version: " + patchedVer + "\n\n" +
-                "You must uninstall the existing app before installing the patched version. " +
-                "This will remove all app data.\n\n" +
-                "What would you like to do?")
+                "O aplicativo instalado \"" + targetPackageName + "\" usa uma chave de assinatura diferente da do APK modificado.\n\n" +
+                "Versão instalada: " + installedVer + "\n" +
+                "Versão modificada: " + patchedVer + "\n\n" +
+                "É necessário desinstalar o aplicativo atual antes de instalar a versão modificada. " +
+                "Isso removerá todos os dados do aplicativo.\n\n" +
+                "O que deseja fazer?")
             .setPositiveButton(PtBr.t("Uninstall & Install"), (d, w) -> {
                 startUninstallFlow(targetPackageName, true);
             })
