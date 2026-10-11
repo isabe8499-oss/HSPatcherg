@@ -878,15 +878,15 @@ public class TextReplaceActivity extends Activity {
             String replaceText = etReplace.getText().toString();
             new AlertDialog.Builder(this,
                     android.R.style.Theme_Material_Dialog_Alert)
-                .setTitle("Replace All (large file)")
-                .setMessage("Stream-process entire file ("
+                .setTitle(PtBr.t("Replace All (large file)"))
+                .setMessage("Processar o arquivo inteiro em fluxo (
                     + formatSize(currentFileSize) + ")?\n\n"
-                    + "Search: " + searchText + "\n"
-                    + "Replace: " + replaceText + "\n\n"
-                    + "The file will be modified in place.")
-                .setPositiveButton("Replace",
+                    + "Pesquisar: " + searchText + "\n"
+                    + "Substituir: " + replaceText + "\n\n"
+                    + "O arquivo será modificado no local atual.")
+                .setPositiveButton(PtBr.t("Replace"),
                     (d, w) -> streamReplaceAllAsync(pattern))
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(PtBr.t("Cancel"), null)
                 .show();
             return;
         }
